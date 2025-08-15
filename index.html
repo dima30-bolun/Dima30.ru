@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dima30 - Инновации для вашего мира</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #0067b8;
+            --secondary-color: #505a6e;
+            --light-color: #f2f2f2;
+            --dark-color: #1b1b1b;
+            --accent-color: #107c10;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #000;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-icon, .cart-icon, .user-icon {
+            margin-left: 20px;
+            font-size: 18px;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('img/hero.jpg') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s;
+        }
+        
+        .hero-btn:hover {
+            background-color: #005da6;
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 80px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 60px;
+            color: var(--dark-color);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-content {
+            padding: 25px;
+        }
+        
+        .product-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .product-desc {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            min-height: 120px;
+        }
+        
+        .product-btn {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--primary-color);
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--primary-color);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .product-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 60px 40px 30px;
+            color: #616161;
+        }
+        
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #616161;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .footer-lang {
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-lang i {
+            margin-right: 8px;
+        }
+        
+        .footer-links-bottom {
+            display: flex;
+            list-style: none;
+        }
+        
+        .footer-links-bottom li {
+            margin-left: 30px;
+        }
+        
+        .footer-links-bottom a {
+            text-decoration: none;
+            color: #616161;
+            transition: color 0.3s;
+        }
+        
+        .footer-links-bottom a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-icon {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .hero {
+                height: 70vh;
+            }
+            
+            .products {
+                padding: 50px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links-bottom {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-links-bottom li {
+                margin: 5px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fab fa-microsoft"></i>
+                dima30
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="bolun_1.0.html">Bolun 1.0</a></li>
+                <li><a href="bolun_phone.html">Bolun Phone</a></li>
+                <li><a href="dima30_store.html">dima30 Store</a></li>
+                <li><a href="#">Поддержка</a></li>
+            </ul>
+            
+            <div class="nav-right">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="menu-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Инновации для вашего мира</h1>
+            <p>Откройте для себя продукты dima30, созданные для вашей продуктивности, творчества и развлечений</p>
+            <a href="#" class="hero-btn">Узнать больше</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <h2 class="section-title">Наши продукты</h2>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="img/bolun_1.0.jpg" alt="Bolun 1.0">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Bolun 1.0</h3>
+                    <div class="product-desc" id="bolun10-desc">
+                        Загрузка описания...
+                    </div>
+                    <a href="bolun_1.0.html" class="product-btn">Перейти</a>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="img/bolun_phone.jpg" alt="Bolun Phone">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Bolun Phone</h3>
+                    <div class="product-desc" id="bolunphone-desc">
+                        Загрузка описания...
+                    </div>
+                    <a href="bolun_phone.html" class="product-btn">Перейти</a>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="img/dima30_store.jpg" alt="dima30 Store">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">dima30 Store</h3>
+                    <div class="product-desc" id="dima30store-desc">
+                        Загрузка описания...
+                    </div>
+                    <a href="dima30_store.html" class="product-btn">Перейти</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Что нового?</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Bolun 1.0</a></li>
+                    <li><a href="#">Bolun Phone</a></li>
+                    <li><a href="#">dima30 Store</a></li>
+                    <li><a href="#">Обновления</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Продукты</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Операционные системы</a></li>
+                    <li><a href="#">Мобильные устройства</a></li>
+                    <li><a href="#">Для бизнеса</a></li>
+                    <li><a href="#">Для разработчиков</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Компания</h3>
+                <ul class="footer-links">
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Компания dima30</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Конфиденциальность</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Поддержка</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Служба поддержки</a></li>
+                    <li><a href="#">Сообщество</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Форум</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-lang">
+                <i class="fas fa-globe"></i>
+                <span>Русский (Россия)</span>
+            </div>
+            
+            <ul class="footer-links-bottom">
+                <li><a href="#">Связаться с dima30</a></li>
+                <li><a href="#">Конфиденциальность</a></li>
+                <li><a href="#">Условия использования</a></li>
+                <li><a href="#">Товарные знаки</a></li>
+                <li><a href="#">Информация о рекламе</a></li>
+                <li><a href="#">&copy; dima30 2023</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Загрузка описаний из текстовых файлов
+        document.addEventListener('DOMContentLoaded', function() {
+            // Функция для загрузки текста
+            function loadText(elementId, filePath) {
+                fetch(filePath)
+                    .then(response => response.text())
+                    .then(text => {
+                        document.getElementById(elementId).textContent = text;
+                    })
+                    .catch(error => {
+                        console.error('Ошибка загрузки текста:', error);
+                        document.getElementById(elementId).textContent = "Описание недоступно";
+                    });
+            }
+            
+            // Загрузка описаний для продуктов
+            loadText('bolun10-desc', 'texts/bolun_1.0.txt');
+            loadText('bolunphone-desc', 'texts/bolun_phone.txt');
+            loadText('dima30store-desc', 'texts/dima30_store.txt');
+            
+            // Mobile menu toggle
+            const menuIcon = document.querySelector('.menu-icon');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener('click', function() {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                });
+            }
+        });
+    </script>
+</body>
+  </html>
