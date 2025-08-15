@@ -1,1 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolun Phone - dima30</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #0067b8;
+            --secondary-color: #505a6e;
+            --light-color: #f2f2f2;
+            --dark-color: #1b1b1b;
+            --accent-color: #107c10;
+            --phone-color: #7e57c2;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #000;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-icon, .cart-icon, .user-icon {
+            margin-left: 20px;
+            font-size: 18px;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Page Content */
+        .page-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--phone-color);
+        }
+        
+        .product-header {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .product-header-img {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .product-header-img img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        
+        .product-header-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-header-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .product-full-desc {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--phone-color);
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .feature-desc {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+        }
+        
+        .version-selector {
+            margin: 30px 0;
+        }
+        
+        .version-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .versions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .version-card {
+            border: 2px solid #e1e1e1;
+            border-radius: 4px;
+            padding: 20px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .version-card:hover, .version-card.selected {
+            border-color: var(--phone-color);
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.1);
+        }
+        
+        .version-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .version-card p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        
+        .buy-btn {
+            display: inline-block;
+            background-color: var(--phone-color);
+            color: white;
+            padding: 12px 35px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .buy-btn:hover {
+            background-color: #6d4cb3;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 40px;
+            font-weight: 500;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 60px 40px 30px;
+            color: #616161;
+        }
+        
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #616161;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .footer-lang {
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-lang i {
+            margin-right: 8px;
+        }
+        
+        .footer-links-bottom {
+            display: flex;
+            list-style: none;
+        }
+        
+        .footer-links-bottom li {
+            margin-left: 30px;
+        }
+        
+        .footer-links-bottom a {
+            text-decoration: none;
+            color: #616161;
+            transition: color 0.3s;
+        }
+        
+        .footer-links-bottom a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-icon {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links-bottom {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-links-bottom li {
+                margin: 5px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fab fa-microsoft"></i>
+                dima30
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="bolun_1.0.html">Bolun 1.0</a></li>
+                <li><a href="bolun_phone.html" class="active">Bolun Phone</a></li>
+                <li><a href="dima30_store.html">dima30 Store</a></li>
+                <li><a href="#">Поддержка</a></li>
+            </ul>
+            
+            <div class="nav-right">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="menu-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
 
+    <!-- Page Content -->
+    <main class="page-content">
+        <h1 class="page-title">Bolun Phone</h1>
+        
+        <div class="product-header">
+            <div class="product-header-img">
+                <img src="img/bolun_phone_header.jpg" alt="Bolun Phone" style="max-height: 400px;">
+            </div>
+            
+            <div class="product-header-content">
+                <h2 class="product-header-title">Мощный смартфон нового поколения</h2>
+                <div class="product-full-desc" id="full-desc">
+                    Загрузка полного описания...
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="feature-title">Профессиональная камера</h3>
+                        <p class="feature-desc">Тройная камера с оптической стабилизацией и ночным режимом</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                        <h3 class="feature-title">Длительная работа</h3>
+                        <p class="feature-desc">Батарея на 5000 мАч с быстрой зарядкой</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3 class="feature-title">Мощный процессор</h3>
+                        <p class="feature-desc">8-ядерный процессор Bolun Snapdragon 8 Gen 2</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                        <h3 class="feature-title">Яркий дисплей</h3>
+                        <p class="feature-desc">6.7" AMOLED дисплей с частотой 120 Гц</p>
+                    </div>
+                </div>
+                
+                <div class="version-selector">
+                    <h3 class="version-title">Выберите модель:</h3>
+                    <div class="versions">
+                        <div class="version-card selected">
+                            <h4>Bolun Phone Pro</h4>
+                            <p>128 ГБ памяти</p>
+                        </div>
+                        <div class="version-card">
+                            <h4>Bolun Phone Max</h4>
+                            <p>256 ГБ памяти</p>
+                        </div>
+                        <div class="version-card">
+                            <h4>Bolun Phone Ultra</h4>
+                            <p>512 ГБ памяти</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="buy-btn">Купить сейчас</a>
+                </div>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Вернуться на главную
+        </a>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Что нового?</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Bolun 1.0</a></li>
+                    <li><a href="#">Bolun Phone</a></li>
+                    <li><a href="#">dima30 Store</a></li>
+                    <li><a href="#">Обновления</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Продукты</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Операционные системы</a></li>
+                    <li><a href="#">Мобильные устройства</a></li>
+                    <li><a href="#">Для бизнеса</a></li>
+                    <li><a href="#">Для разработчиков</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Компания</h3>
+                <ul class="footer-links">
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Компания dima30</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Конфиденциальность</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Поддержка</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Служба поддержки</a></li>
+                    <li><a href="#">Сообщество</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Форум</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-lang">
+                <i class="fas fa-globe"></i>
+                <span>Русский (Россия)</span>
+            </div>
+            
+            <ul class="footer-links-bottom">
+                <li><a href="#">Связаться с dima30</a></li>
+                <li><a href="#">Конфиденциальность</a></li>
+                <li><a href="#">Условия использования</a></li>
+                <li><a href="#">Товарные знаки</a></li>
+                <li><a href="#">Информация о рекламе</a></li>
+                <li><a href="#">&copy; dima30 2023</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Загрузка описания из текстового файла
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загрузка полного описания
+            fetch('texts/bolun_phone.txt')
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('full-desc').textContent = text;
+                })
+                .catch(error => {
+                    console.error('Ошибка загрузки описания:', error);
+                    document.getElementById('full-desc').textContent = "Полное описание недоступно";
+                });
+            
+            // Version selection
+            const versionCards = document.querySelectorAll('.version-card');
+            if (versionCards.length > 0) {
+                versionCards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        versionCards.forEach(c => c.classList.remove('selected'));
+                        this.classList.add('selected');
+                    });
+                });
+            }
+            
+            // Mobile menu toggle
+            const menuIcon = document.querySelector('.menu-icon');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener('click', function() {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                });
+            }
+        });
+    </script>
+</body>
+  </html>
