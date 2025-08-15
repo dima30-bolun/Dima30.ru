@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dima30 Store - dima30</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #0067b8;
+            --secondary-color: #505a6e;
+            --light-color: #f2f2f2;
+            --dark-color: #1b1b1b;
+            --accent-color: #107c10;
+            --store-color: #00a4ef;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #000;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-icon, .cart-icon, .user-icon {
+            margin-left: 20px;
+            font-size: 18px;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Page Content */
+        .page-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--store-color);
+        }
+        
+        .product-header {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .product-header-img {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #00a4ef 0%, #0078d7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .product-header-img img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        
+        .product-header-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-header-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .product-full-desc {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .category-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #00a4ef 0%, #0078d7 100%);
+            color: white;
+        }
+        
+        .category-card:hover .category-icon,
+        .category-card:hover .category-title,
+        .category-card:hover .category-desc {
+            color: white;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--store-color);
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .category-desc {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+        }
+        
+        .app-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .app-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .app-img {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .app-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .app-content {
+            padding: 20px;
+        }
+        
+        .app-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .app-desc {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            min-height: 60px;
+        }
+        
+        .app-btn {
+            display: inline-block;
+            background-color: var(--store-color);
+            color: white;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .app-btn:hover {
+            background-color: #008cd6;
+        }
+        
+        .store-btn {
+            display: inline-block;
+            background-color: var(--store-color);
+            color: white;
+            padding: 12px 35px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .store-btn:hover {
+            background-color: #008cd6;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 40px;
+            font-weight: 500;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 60px 40px 30px;
+            color: #616161;
+        }
+        
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #616161;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .footer-lang {
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-lang i {
+            margin-right: 8px;
+        }
+        
+        .footer-links-bottom {
+            display: flex;
+            list-style: none;
+        }
+        
+        .footer-links-bottom li {
+            margin-left: 30px;
+        }
+        
+        .footer-links-bottom a {
+            text-decoration: none;
+            color: #616161;
+            transition: color 0.3s;
+        }
+        
+        .footer-links-bottom a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-icon {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links-bottom {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-links-bottom li {
+                margin: 5px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fab fa-microsoft"></i>
+                dima30
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="bolun_1.0.html">Bolun 1.0</a></li>
+                <li><a href="bolun_phone.html">Bolun Phone</a></li>
+                <li><a href="dima30_store.html" class="active">dima30 Store</a></li>
+                <li><a href="#">Поддержка</a></li>
+            </ul>
+            
+            <div class="nav-right">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="menu-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <main class="page-content">
+        <h1 class="page-title">dima30 Store</h1>
+        
+        <div class="product-header">
+            <div class="product-header-img">
+                <img src="img/dima30_store_header.jpg" alt="dima30 Store" style="max-height: 400px;">
+            </div>
+            
+            <div class="product-header-content">
+                <h2 class="product-header-title">Ваш универсальный магазин приложений</h2>
+                <div class="product-full-desc" id="full-desc">
+                    Загрузка полного описания...
+                </div>
+                
+                <div class="categories">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3 class="category-title">Игры</h3>
+                        <p class="category-desc">Лучшие игры для всех платформ</p>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3 class="category-title">Фильмы и ТВ</h3>
+                        <p class="category-desc">Последние новинки и классика</p>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="category-title">Музыка</h3>
+                        <p class="category-desc">Миллионы песен и альбомов</p>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="category-title">Книги</h3>
+                        <p class="category-desc">Электронные книги и аудиокниги</p>
+                    </div>
+                </div>
+                
+                <h3>Популярные приложения</h3>
+                <div class="app-showcase">
+                    <div class="app-card">
+                        <div class="app-img">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Photo Editor Pro">
+                        </div>
+                        <div class="app-content">
+                            <h4 class="app-title">Photo Editor Pro</h4>
+                            <p class="app-desc">Профессиональное редактирование фотографий</p>
+                            <a href="#" class="app-btn">Установить</a>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-img">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Finance Tracker">
+                        </div>
+                        <div class="app-content">
+                            <h4 class="app-title">Finance Tracker</h4>
+                            <p class="app-desc">Управление финансами и бюджетирование</p>
+                            <a href="#" class="app-btn">Установить</a>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card">
+                        <div class="app-img">
+                            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Fitness Coach">
+                        </div>
+                        <div class="app-content">
+                            <h4 class="app-title">Fitness Coach</h4>
+                            <p class="app-desc">Персональный тренер в вашем телефоне</p>
+                            <a href="#" class="app-btn">Установить</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="store-btn">Перейти в магазин</a>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Вернуться на главную
+        </a>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Что нового?</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Bolun 1.0</a></li>
+                    <li><a href="#">Bolun Phone</a></li>
+                    <li><a href="#">dima30 Store</a></li>
+                    <li><a href="#">Обновления</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Продукты</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Операционные системы</a></li>
+                    <li><a href="#">Мобильные устройства</a></li>
+                    <li><a href="#">Для бизнеса</a></li>
+                    <li><a href="#">Для разработчиков</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Компания</h3>
+                <ul class="footer-links">
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Компания dima30</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Конфиденциальность</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Поддержка</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Служба поддержки</a></li>
+                    <li><a href="#">Сообщество</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Форум</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-lang">
+                <i class="fas fa-globe"></i>
+                <span>Русский (Россия)</span>
+            </div>
+            
+            <ul class="footer-links-bottom">
+                <li><a href="#">Связаться с dima30</a></li>
+                <li><a href="#">Конфиденциальность</a></li>
+                <li><a href="#">Условия использования</a></li>
+                <li><a href="#">Товарные знаки</a></li>
+                <li><a href="#">Информация о рекламе</a></li>
+                <li><a href="#">&copy; dima30 2023</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Загрузка описания из текстового файла
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загрузка полного описания
+            fetch('texts/dima30_store.txt')
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('full-desc').textContent = text;
+                })
+                .catch(error => {
+                    console.error('Ошибка загрузки описания:', error);
+                    document.getElementById('full-desc').textContent = "Полное описание недоступно";
+                });
+            
+            // Mobile menu toggle
+            const menuIcon = document.querySelector('.menu-icon');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener('click', function() {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                });
+            }
+        });
+    </script>
+</body>
+  </html>
